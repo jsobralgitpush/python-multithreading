@@ -18,7 +18,7 @@ def synchronous_view(request):
         'results': results,
         'execution_time': sync_time
     }
-    return render(request, 'performance.html', context)
+    return render(request, 'synchronous.html', context)
 
 def concurrent_view(request):
     start_time = time.time()
@@ -34,4 +34,4 @@ def concurrent_view(request):
         'results': results,
         'execution_time': concurrent_time
     }
-    return render(request, 'performance.html', context)
+    return render(request, 'concurrent.html', context)

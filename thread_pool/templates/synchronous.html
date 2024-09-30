@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Synchronous Processing Results</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      .container {
+        display: flex;
+        justify-content: space-between;
+        padding: 20px;
+      }
+      .results,
+      .code-section {
+        width: 48%;
+      }
+      .toggle-button {
+        cursor: pointer;
+        background-color: #007bff;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+      }
+      .toggle-content {
+        display: none;
+        margin-top: 10px;
+        background-color: #f9f9f9;
+        padding: 15px;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+      }
+      .code-block {
+        background-color: #f4f4f4;
+        padding: 10px;
+        border-radius: 5px;
+        font-family: monospace;
+        overflow-x: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Results Section -->
+      <div class="results">
+        <h1>Synchronous Processing</h1>
+        <p>Execution Time: {{ execution_time }} seconds</p>
+        <h2>Results:</h2>
+        <ul>
+          {% for result in results %}
+          <li>{{ result }}</li>
+          {% endfor %}
+        </ul>
+        <a href="{% url 'synchronous' %}">Test Synchronous Processing</a> |
+        <a href="{% url 'concurrent' %}">Test Concurrent Processing</a>
+      </div>
+
+      <!-- Code Section with Toggle Explanation -->
+      <div class="code-section">
+        <h2>Code Used</h2>
+        <div class="code-block">
+          <pre>
+def synchronous_view(request):
+    start_time = time.time()
+    results = []
+    for i in range(5):
+        results.append(task(i))
+    end_time = time.time()
+    execution_time = end_time - start_time
+    return render(request, 'synchronous.html', {'results': results, 'execution_time': execution_time})
+                </pre
+          >
+        </div>
+
+        <button class="toggle-button" onclick="toggleExplanation()">
+          Toggle Explanation
+        </button>
+
+        <div class="toggle-content" id="explanation">
+          <h3>Explanation of the Code</h3>
+          <ul>
+            <li>
+              <strong>for i in range(5)</strong>: Runs each task sequentially,
+              one after the other.
+            </li>
+            <li>
+              <strong>results.append(task(i))</strong>: Each result is appended
+              after the task completes.
+            </li>
+            <li>
+              <strong>execution_time</strong>: Calculates the total time for all
+              tasks to finish sequentially.
+            </li>
+            <li>
+              <strong>render</strong>: Returns the rendered template with the
+              results and execution time.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function toggleExplanation() {
+        const explanation = document.getElementById("explanation");
+        if (
+          explanation.style.display === "none" ||
+          explanation.style.display === ""
+        ) {
+          explanation.style.display = "block";
+        } else {
+          explanation.style.display = "none";
+        }
+      }
+    </script>
+  </body>
+</html>
