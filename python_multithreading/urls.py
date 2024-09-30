@@ -18,6 +18,6 @@ from django.urls import path
 from thread_pool.views import synchronous_view, concurrent_view
 
 urlpatterns = [
+    path('', concurrent_view, name='concurrent'),
     path('synchronous/', synchronous_view, name='synchronous'),
-    path('concurrent/', concurrent_view, name='concurrent'),
 ]
