@@ -63,11 +63,15 @@
         <h2>Code Used</h2>
         <div class="code-block">
           <pre>
+def heavy_task(n):
+    time.sleep(2)
+    return f"Task {n} completed"
+
 def concurrent_view(request):
     start_time = time.time()
     results = []
     with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
-        futures = [executor.submit(task, i) for i in range(5)]
+        futures = [executor.submit(heavy_task, i) for i in range(5)]
         for future in concurrent.futures.as_completed(futures):
             results.append(future.result())
     end_time = time.time()

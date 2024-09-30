@@ -3,7 +3,7 @@ import concurrent.futures
 from django.shortcuts import render
 
 def heavy_task(n):
-    time.sleep(2)  # Simulate a time-consuming I/O-bound task
+    time.sleep(2)
     return f"Task {n} completed"
 
 def synchronous_view(request):
